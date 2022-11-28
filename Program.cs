@@ -1,66 +1,142 @@
 ﻿/*
-//программа принимает на вход два числа (A и B) и возводит число A в натуральную степень B
-Console.Write("Введите число: ");
-int A = int.Parse(Console.ReadLine()!);
-Console.Write("Введите степень числа: ");
-int B = int.Parse(Console.ReadLine()!);
-Console.WriteLine($"Число {A} в степени {B} равно: {GetDegree(A,B)}");
-
-//-----------------------------------------------МЕТОД---------------------------------------------------
-int GetDegree(int number, int degree) {
-    if(degree == 0) {
-        return 1;
-    }
-    else {
-        int result = number;
-        for(int i = 1; i < degree; i++) {
-            result *= number;
-        }
-        return result;
-    }
-}
-
-
-//программу принимает на вход число и выдаёт сумму цифр в числе
-Console.Write("Введите число: ");
-int number = int.Parse(Console.ReadLine()!);
-Console.WriteLine($"Сумма цифр в числе {number} равна {GetSum(number)} ");
-
-//-----------------------------------------------МЕТОД---------------------------------------------------
-int GetSum(int num) {
-    int result = 0;
-    while(num > 0) {
-        result += num % 10;
-        num /= 10;
-     }
-     return result;
-}
-*/
-
-// программа задаёт массив из 8 элементов и выводит их на экран
-const int size = 8;
+//Заполнить массив случайными положительными трёхзначными числами. Программа показывает количество чётных чисел в массиве.
+const int size = 10;
 int[] mass = InitArray(size);
-Console.WriteLine($"Массив из {size} элементов: [{String.Join(",",mass)}]");
-Console.Write($"Массив из {size} элементов: ");
-PrintArray(mass);
+Console.WriteLine($"Массив: [{String.Join(",",mass)}]");
+Console.WriteLine($"Количество чётных чисел в массиве: {EvenNumber(mass)}");
+
 //-----------------------------------------------МЕТОДЫ--------------------------------------------------
 //Заполнение массива
-int[] InitArray(int size) {
+int[] InitArray(int size) 
+{
     int[] array = new int[size];
-    for(int i = 0; i < size; i++) {
-        array[i] = new Random().Next(0,151);
+    for(int i = 0; i < size; i++) 
+    {
+        array[i] = new Random().Next(100, 1000);
     }
     return array;
 }
-//Печать массива
-void PrintArray(int[] array) {
-    Console.Write("[");
-    for(int i = 0; i < array.Length; i++) {
-        if (i == array.Length - 1) {
-            Console.Write($"{array[i]}]");    
-        }
-        else {
-            Console.Write($"{array[i]},");
+
+//Подсчет четных чисел
+int EvenNumber(int [] array) 
+{
+    int count = 0;
+    for(int i = 0; i < array.Length; i++)
+    {
+        if (array[i] % 2 == 0)
+        {
+            count++;
         }
     }
+    return count;
+}
+
+//---------------------------------------------------------------------------------------------------------------------------
+//Найти сумму элементов, стоящих на нечётных позициях
+const int size = 15;
+int[] mass = InitArray(size);
+Console.WriteLine($"Массив: [{String.Join(",",mass)}]");
+Console.WriteLine($"Сумма элементов на нечётных позициях: {SumUneven(mass)}");
+//-----------------------------------------------МЕТОДЫ--------------------------------------------------
+//Заполнение массива
+int[] InitArray(int size) 
+{
+    int[] array = new int[size];
+    for(int i = 0; i < size; i++) 
+    {
+        array[i] = new Random().Next(-100, 100);
+    }
+    return array;
+}
+
+//Сумма элементов на нечётных позициях
+int SumUneven(int[] array)
+{
+    int sum = 0;
+    for(int i = 0; i < array.Length; i++)
+    {
+        if (i % 2 != 0)
+        {
+            sum += array[i];
+        }
+    }
+    return sum;
+}
+//---------------------------------------------------------------------------------------------------------
+
+//Найти произведение пар чисел в одномерном массиве. Результат запишите в новом массиве.
+Console.Write($"Введите размер массива: ");
+int size = int.Parse(Console.ReadLine()!);
+int[] mass = InitArray(size);
+Console.WriteLine($"Массив: [{String.Join(",",mass)}]");
+Console.WriteLine($"Произведение пар чисел: [{String.Join(",",Multiplication(mass))}]");
+//-----------------------------------------------МЕТОДЫ--------------------------------------------------
+//Заполнение массива
+int[] InitArray(int size) 
+{
+    int[] array = new int[size];
+    for(int i = 0; i < size; i++) 
+    {
+        array[i] = new Random().Next(0, 100);
+    }
+    return array;
+}
+
+//Произведение пар чисел в массиве
+int[] Multiplication(int[] array)
+{
+    int[] mult;
+    if(array.Length % 2 == 0)
+    {
+        mult = new int[array.Length / 2];
+    }
+    else
+    {
+        mult = new int[array.Length / 2 + 1];
+        mult[array.Length / 2]  = array[array.Length / 2];
+    }
+    for(int i = 0; i < array.Length / 2; i++)
+    {
+        mult[i] = array[i] * array[array.Length - i - 1];
+    }
+    return mult;
+}
+*/
+//-------------------------------------------------------------------------------------------------------
+//Найдите разницу между максимальным и минимальным элементов массива
+Console.Write($"Введите размер массива: ");
+int size = int.Parse(Console.ReadLine()!);
+int[] mass = InitArray(size);
+Console.WriteLine($"Массив: [{String.Join(",",mass)}]");
+Console.WriteLine($"Разница между максимальным и минимальным элементами массива: {GetDifference(mass)}");
+//-----------------------------------------------МЕТОДЫ--------------------------------------------------
+//Заполнение массива
+int[] InitArray(int size) 
+{
+    int[] array = new int[size];
+    for(int i = 0; i < size; i++) 
+    {
+        array[i] = new Random().Next(-10, 11);
+    }
+    return array;
+}
+
+//Разница между максимальным и минимальным элементами массива
+int GetDifference(int[] array)
+{
+    int min = array[0]; 
+    int max = array[0];
+
+    for(int i = 1; i < array.Length; i++)
+    {
+        if(array[i] > max)
+        {
+            max = array[i];
+        }
+        else if (array[i] < min)
+        {
+            min = array[i];
+        }
+    }
+    return max - min;
 }
